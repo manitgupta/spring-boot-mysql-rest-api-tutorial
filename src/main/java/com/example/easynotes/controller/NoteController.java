@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 
 /**
@@ -31,13 +31,13 @@ public class NoteController {
     }
 
     @GetMapping("/notes/{id}")
-    public Note getNoteById(@PathVariable(value = "id") Long noteId) {
+    public Note getNoteById(@PathVariable(value = "id") String noteId) {
         return noteRepository.findById(noteId)
                 .orElseThrow(() -> new ResourceNotFoundException("Note", "id", noteId));
     }
 
     @PutMapping("/notes/{id}")
-    public Note updateNote(@PathVariable(value = "id") Long noteId,
+    public Note updateNote(@PathVariable(value = "id") String noteId,
                                            @Valid @RequestBody Note noteDetails) {
 
         Note note = noteRepository.findById(noteId)
@@ -51,7 +51,7 @@ public class NoteController {
     }
 
     @DeleteMapping("/notes/{id}")
-    public ResponseEntity<?> deleteNote(@PathVariable(value = "id") Long noteId) {
+    public ResponseEntity<?> deleteNote(@PathVariable(value = "id") String noteId) {
         Note note = noteRepository.findById(noteId)
                 .orElseThrow(() -> new ResourceNotFoundException("Note", "id", noteId));
 
